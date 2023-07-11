@@ -11,13 +11,13 @@ start_date = "2022-01-01"
 end_date = "2022-01-31"
 ##################################################################
 
-googleads_client = GoogleAdsClient.load_from_storage("./google_ads.yaml", version="v14")
+client = GoogleAdsClient.load_from_storage("./google_ads.yaml", version="v14")
 date = [start_date, end_date]
 
 try:
-    print(queries.overview(googleads_client, customer_id, date))
-    print(queries.get_campaigns(googleads_client, customer_id, date))
-    print(queries.get_ad_groups(googleads_client, customer_id, date))
-    print(queries.get_ads(googleads_client, customer_id, date))
+    print(queries.overview(client, customer_id, date))
+    print(queries.get_campaigns(client, customer_id, date))
+    print(queries.get_ad_groups(client, customer_id, date))
+    print(queries.get_ads(client, customer_id, date))
 except GoogleAdsException:
     sys.exit(12)

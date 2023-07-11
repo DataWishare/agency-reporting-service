@@ -1,7 +1,7 @@
 import pandas as pd
 from google.ads.googleads.client import GoogleAdsClient
 
-def overview(client: GoogleAdsClient, customer_id, period):
+def overview(client: GoogleAdsClient, customer_id: int, date: list[str]):
     ga_service = client.get_service("GoogleAdsService")
     query = f"""
         SELECT 
@@ -9,7 +9,7 @@ def overview(client: GoogleAdsClient, customer_id, period):
             metrics.impressions, 
             metrics.conversions 
         FROM customer
-        WHERE segments.date BETWEEN '{period[0]}' AND '{period[1]}'
+        WHERE segments.date BETWEEN '{date[0]}' AND '{date[1]}'
     """
     stream = ga_service.search_stream(customer_id=customer_id, query=query)
     data = []
@@ -24,7 +24,7 @@ def overview(client: GoogleAdsClient, customer_id, period):
             "Clicks", 
             "Conversions"])
 
-def get_campaigns(client: GoogleAdsClient, customer_id, period):
+def get_campaigns(client: GoogleAdsClient, customer_id, date):
     ga_service = client.get_service("GoogleAdsService")
     query = f"""
         SELECT 
@@ -39,7 +39,7 @@ def get_campaigns(client: GoogleAdsClient, customer_id, period):
         FROM campaign 
         WHERE 
             campaign.status = 'ENABLED' 
-            AND segments.date BETWEEN '{period[0]}' AND '{period[1]}'
+            AND segments.date BETWEEN '{date[0]}' AND '{date[1]}'
     """
     stream = ga_service.search_stream(customer_id=customer_id, query=query)
     data = []
@@ -64,7 +64,7 @@ def get_campaigns(client: GoogleAdsClient, customer_id, period):
             "CPClick", 
             "CPConversion"])
 
-def get_ad_groups(client: GoogleAdsClient, customer_id, period):
+def get_ad_groups(client: GoogleAdsClient, customer_id, date):
     ga_service = client.get_service("GoogleAdsService")
     query = f"""
         SELECT 
@@ -79,7 +79,7 @@ def get_ad_groups(client: GoogleAdsClient, customer_id, period):
         FROM ad_group 
         WHERE 
             ad_group.status = 'ENABLED' 
-            AND segments.date BETWEEN '{period[0]}' AND '{period[1]}'
+            AND segments.date BETWEEN '{date[0]}' AND '{date[1]}'
     """
     stream = ga_service.search_stream(customer_id=customer_id, query=query)
     data = []
@@ -104,7 +104,7 @@ def get_ad_groups(client: GoogleAdsClient, customer_id, period):
             "CPClick", 
             "CPConversion"])
 
-def get_ads(client: GoogleAdsClient, customer_id, period):
+def get_ads(client: GoogleAdsClient, customer_id, date):
     ga_service = client.get_service("GoogleAdsService")
     query = f"""
         SELECT 
@@ -120,7 +120,7 @@ def get_ads(client: GoogleAdsClient, customer_id, period):
         FROM ad_group_ad
         WHERE 
             ad_group_ad.status = 'ENABLED'
-            AND segments.date BETWEEN '{period[0]}' AND '{period[1]}'
+            AND segments.date BETWEEN '{date[0]}' AND '{date[1]}'
     """
     stream = ga_service.search_stream(customer_id=customer_id, query=query)
     data = []

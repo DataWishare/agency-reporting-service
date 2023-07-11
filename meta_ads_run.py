@@ -24,4 +24,4 @@ FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
 account = AdAccount(ad_account_id)
 
 date = [start_date, end_date]
-print(queries.get_campaigns(account=account, date=date))
+print(queries.get_campaign_stats(account=account, date=date))

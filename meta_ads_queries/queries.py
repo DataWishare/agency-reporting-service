@@ -1,7 +1,7 @@
 from facebook_business.adobjects.adaccount import AdAccount
 import pandas as pd
 
-def get_campaigns(account: AdAccount, date: list[str]):
+def get_campaign_stats(account: AdAccount, date: list[str]):
     fields = ['impressions', 'clicks', 'spend']
     params = {'time_range': {'since': date[0], 'until': date[1]}}
     data = []
