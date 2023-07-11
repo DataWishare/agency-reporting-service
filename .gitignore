@@ -1,0 +1,4 @@
+venv
+*.yaml
+*.csv
+__pycache__
