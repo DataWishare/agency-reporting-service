@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-import google_ads_queries.queries as queries
+import queries.google_ads as gq
 from google.ads.googleads.client import GoogleAdsClient
 from google.ads.googleads.errors import GoogleAdsException
 
@@ -15,9 +15,9 @@ client = GoogleAdsClient.load_from_storage("./google_ads.yaml", version="v14")
 date = [start_date, end_date]
 
 try:
-    print(queries.overview(client, customer_id, date))
-    print(queries.get_campaigns(client, customer_id, date))
-    print(queries.get_ad_groups(client, customer_id, date))
-    print(queries.get_ads(client, customer_id, date))
+    print(gq.overview(client, customer_id, date))
+    print(gq.get_campaigns(client, customer_id, date))
+    print(gq.get_ad_groups(client, customer_id, date))
+    print(gq.get_ads(client, customer_id, date))
 except GoogleAdsException:
     sys.exit(12)

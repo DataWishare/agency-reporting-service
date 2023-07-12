@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from datetime import date
 
-
 f"""
 # Today is {date.today()}, {date.today().strftime("%A")}
 """

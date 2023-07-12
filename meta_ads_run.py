@@ -2,7 +2,7 @@
 
 from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
-import meta_ads_queries.queries as queries
+import queries.meta_ads as mq
 import yaml
 
 ##################################################################
@@ -24,4 +24,4 @@ FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
 account = AdAccount(ad_account_id)
 
 date = [start_date, end_date]
-print(queries.get_campaign_stats(account=account, date=date))
+print(mq.get_campaign_stats(account=account, date=date))

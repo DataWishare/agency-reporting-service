@@ -1,7 +1,6 @@
 import streamlit as st
-import pandas as pd
 
-st.image("./wishare.png", width=150)
+st.image("wishare.png")
 
 f"""
 # Wishare Media Marketing Performance Tracking Service

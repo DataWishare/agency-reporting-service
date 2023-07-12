@@ -3,3 +3,4 @@ venv
 *.csv
 *.ipynb
 __pycache__
+config.py

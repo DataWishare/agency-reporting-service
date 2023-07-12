@@ -1,8 +1,8 @@
 import streamlit as st
-import meta_ads_queries.queries as mq
+import queries.meta_ads as mq
 # import google_ads_queries.queries as gq
 import altair as alt
-import meta_ads_queries.config as mc
+import bootstrap as bs
 # import google_ads_queries.config as gc
 
 f"""
@@ -16,7 +16,7 @@ date = ["2022-11-01", "2022-11-30"]
 with tab1:
     col1, col2, col3, col4 = st.columns(4)
 
-    campaign_stats = mq.get_campaign_stats(mc.accounts['ucm'], ["2022-11-01", "2022-11-30"])
+    campaign_stats = mq.get_campaign_stats(bs.meta_ads_accounts['ucm'], ["2022-11-01", "2022-11-30"])
     campaign_count = campaign_stats.shape[0]
     col1.metric("Campaigns", campaign_count)
 
