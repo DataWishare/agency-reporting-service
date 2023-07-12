@@ -4,31 +4,44 @@ import queries.meta_ads as mq
 import altair as alt
 import bootstrap as bs
 # import google_ads_queries.config as gc
+from datetime import date
 
 f"""
 # Browse by Customer
 """
 
 tab1, tab2 = st.tabs(["UCM", "iTalkBB"])
+def create_date_range_selector(col1, col2):
+    min_date = date(2020, 1, 1)
+    max_date = date.today()
 
-date = ["2022-11-01", "2022-11-30"]
+    start_date = col11.date_input("Start Date", min_value=min_date, max_value=max_date)
+    end_date = col12.date_input("End Date", min_value=min_date, max_value=max_date)
+    if end_date < start_date:
+        raise ValueError("End date is smaller than start date.")
+    return [start_date, end_date]
 
 with tab1:
-    col2, col3, col4, col5 = st.columns(4)
+    try:
+        col11, col12 = st.columns(2)
+    
+        dates = create_date_range_selector(col11, col12)
+        col21, col22, col23, col24 = st.columns(4)
+        summary = mq.get_summary(bs.meta_ads_accounts['ucm'], dates)
+        impressions = summary['Impressions']
+        col21.metric("Impressions", int(impressions))
 
-    campaign_stats = mq.get_campaign_stats(bs.meta_ads_accounts['ucm'], ["2022-11-01", "2022-11-30"])
+        clicks = summary['Clicks']
+        col22.metric("Clicks", int(clicks))
 
-    impressions = campaign_stats['Impressions'].sum()
-    col2.metric("Impressions", impressions)
+        conversions = summary['CPC']
+        col23.metric("CPC", conversions)
 
-    clicks = campaign_stats['Clicks'].sum()
-    col3.metric("Clicks", clicks)
+        cost = summary['Cost']
+        col24.metric("Cost", cost)
 
-    conversions = campaign_stats['CPC'].sum()
-    col4.metric("CPC", conversions)
-
-    cost = campaign_stats['Cost'].sum()
-    col5.metric("Cost", cost)
+    except ValueError as err:
+        st.write(str(err))
 
 
 with tab2:

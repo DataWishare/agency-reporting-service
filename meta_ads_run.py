@@ -4,11 +4,12 @@ from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
 import queries.meta_ads as mq
 import yaml
+from datetime import date
 
 ##################################################################
 account_id = '3107148316242922'
-start_date = "2022-11-1"
-end_date = "2022-11-30"
+start_date = date(2022, 7, 6)
+end_date = date(2023, 4, 1)
 ##################################################################
 
 with open('meta_ads.yaml', 'r') as file:
@@ -24,4 +25,5 @@ FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
 account = AdAccount(ad_account_id)
 
 date = [start_date, end_date]
-print(mq.get_campaign_stats(account=account, date=date))
+# print(mq.get_summary(account=account, date=date))
+print(type(mq.get_created_date(account)))
