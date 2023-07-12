@@ -10,7 +10,7 @@ def overview(client: GoogleAdsClient, customer_id: int, date: list[str]):
             metrics.conversions 
         FROM customer
         WHERE segments.date BETWEEN '{date[0]}' AND '{date[1]}'
-    """
+    """ 
     stream = ga_service.search_stream(customer_id=customer_id, query=query)
     data = []
     for batch in stream:

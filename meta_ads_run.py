@@ -8,8 +8,8 @@ from datetime import date
 
 ##################################################################
 account_id = '3107148316242922'
-start_date = date(2022, 7, 6)
-end_date = date(2023, 4, 1)
+start_date = date(2023, 5, 20)
+end_date = date(2023, 6, 25)
 ##################################################################
 
 with open('meta_ads.yaml', 'r') as file:
@@ -24,6 +24,6 @@ FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
 
 account = AdAccount(ad_account_id)
 
-date = [start_date, end_date]
-# print(mq.get_summary(account=account, date=date))
-print(type(mq.get_created_date(account)))
+dates = [start_date, end_date]
+
+print(mq.get_stats(account, 'data_maximum'))

@@ -4,44 +4,35 @@ import queries.meta_ads as mq
 import altair as alt
 import bootstrap as bs
 # import google_ads_queries.config as gc
-from datetime import date
+from datetime import date, timedelta, datetime
 
 f"""
 # Browse by Customer
 """
 
 tab1, tab2 = st.tabs(["UCM", "iTalkBB"])
-def create_date_range_selector(col1, col2):
-    min_date = date(2020, 1, 1)
+def create_date_range_selector(col11, col12):
+    min_date = mq.get_stats(bs.meta_ads_accounts['ucm'])['Date start'][0]
+    min_date = datetime.strptime(min_date, "%Y-%m-%d")
     max_date = date.today()
 
-    start_date = col11.date_input("Start Date", min_value=min_date, max_value=max_date)
-    end_date = col12.date_input("End Date", min_value=min_date, max_value=max_date)
-    if end_date < start_date:
-        raise ValueError("End date is smaller than start date.")
+    start_date = col11.date_input("Start Date", max_date - timedelta(30), min_value=min_date, max_value=max_date)
+    end_date = col12.date_input("End Date", max_date, min_value=min_date, max_value=max_date)
+
     return [start_date, end_date]
 
 with tab1:
-    try:
-        col11, col12 = st.columns(2)
-    
-        dates = create_date_range_selector(col11, col12)
-        col21, col22, col23, col24 = st.columns(4)
-        summary = mq.get_summary(bs.meta_ads_accounts['ucm'], dates)
-        impressions = summary['Impressions']
-        col21.metric("Impressions", int(impressions))
 
-        clicks = summary['Clicks']
-        col22.metric("Clicks", int(clicks))
+    col11, col12 = st.columns(2)
 
-        conversions = summary['CPC']
-        col23.metric("CPC", conversions)
+    dates = create_date_range_selector(col11, col12)
+    col21, col22, col23, col24 = st.columns(4)
+    stats = mq.get_stats(bs.meta_ads_accounts['ucm'], dates)
 
-        cost = summary['Cost']
-        col24.metric("Cost", cost)
-
-    except ValueError as err:
-        st.write(str(err))
+    col21.metric("Impressions", stats['Impressions'][0])
+    col22.metric("Clicks", stats['Clicks'][0])
+    col23.metric("CPC", stats['CPC'][0])
+    col24.metric("Cost", stats['Cost'][0])
 
 
 with tab2:
