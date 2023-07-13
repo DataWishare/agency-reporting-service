@@ -22,6 +22,6 @@ my_access_token = keys['my_access_token']
 FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
 
 meta_ads_accounts = {
-    'ucm': AdAccount(f'act_{config.meta_ads_ids["ucm"]}')
+    'UCM': AdAccount(f'act_{config.meta_ads_ids["UCM"]}')
 }
 ####################################################################################

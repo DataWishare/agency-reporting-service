@@ -25,5 +25,5 @@ the cost of resorting to third-party data connectors and visualization services.
 
 
 
-'*Developed by sh3l6or😍*'
+'**Developed by sh3l6or**'
 
