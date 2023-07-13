@@ -9,56 +9,66 @@ import pandas as pd
 
 '# 💡 Analytics'
 
+if 'start_date' not in st.session_state:
+    st.session_state.start_date = date.today() - timedelta(30)
+if 'end_date' not in st. session_state:
+    st.session_state.end_date = date.today()
+if 'metric' not in st.session_state:
+    st.session_state.metric = 'Impressions'
+min_date = mq.get_stats(bs.meta_ads_accounts['ucm'])['Date start'][0]
+min_date = datetime.strptime(min_date, "%Y-%m-%d").date()
+
 tab1, tab2 = st.tabs(["UCM", "iTalkBB"])
+def select_dates(start, end):
+    st.session_state.start_date = start
+    st.session_state.end_date = end
+def select_metric(metric):
+    st.session_state.metric = metric
 def create_date_range_selector(col11, col12):
     min_date = mq.get_stats(bs.meta_ads_accounts['ucm'])['Date start'][0]
     min_date = datetime.strptime(min_date, "%Y-%m-%d")
-    max_date = date.today()
-
-    start_date = col11.date_input("Start Date", max_date - timedelta(30), min_value=min_date, max_value=max_date)
-    end_date = col12.date_input("End Date", max_date, min_value=min_date, max_value=max_date)
-
-    return [start_date, end_date]
+    col11.date_input("Start Date", key='start_date', min_value=min_date, max_value=date.today())
+    col12.date_input("End Date", key='end_date', min_value=min_date, max_value=date.today())
 
 with tab1:
 
-    '### Select a date range'
-    col11, col12 = st.columns(2)
-
-    dates = create_date_range_selector(col11, col12)
     yesterday = date.today() - timedelta(1)
-    
-    
-    col31, col32, col33, col34, col35, col36 = st.columns(6)
-    if col31.button('Yesterday'):
-        dates = [yesterday, yesterday]
-    if col32.button('Last week'):
-        dates = [yesterday - timedelta(7), yesterday]
-    if col33.button('Last month'):
-        dates = [yesterday - timedelta(30), yesterday]
-    if col34.button('Last Q'):
-        dates = [yesterday - timedelta(120), yesterday]
-    if col35.button('Last year'):
-        dates = [yesterday - timedelta(365), yesterday]
-    if col36.button('Maximum'):
-        min_date = mq.get_stats(bs.meta_ads_accounts['ucm'])['Date start'][0]
-        min_date = datetime.strptime(min_date, "%Y-%m-%d").date()
-        dates = [min_date, yesterday]
+    with st.sidebar:
+        '### Select a date range'
+        col11, col12 = st.columns(2)
+
+        create_date_range_selector(col11, col12)
+        col11.button('Last 3 days', on_click=select_dates, args=[yesterday - timedelta(3), yesterday])
+        col12.button('Last week', on_click=select_dates, args=[yesterday - timedelta(7), yesterday])
+        col11.button('Last month', on_click=select_dates, args=[yesterday - timedelta(30), yesterday])
+        col12.button('Last Quarter', on_click=select_dates, args=[yesterday - timedelta(120), yesterday])
+        col11.button('Last year', on_click=select_dates, args=[yesterday - timedelta(365), yesterday])
+        col12.button('Maximum', on_click=select_dates, args=[min_date, yesterday])
+        '### Select a metric'
+        col31, col32 = st.columns(2)
+        col31.button('Impressions', on_click=select_metric, args=['Impressions'])
+        col32.button('Clicks', on_click=select_metric, args=['Clicks'])
+        col31.button('Cost', on_click=select_metric, args=['Cost'])
+        col32.button('CPC', on_click=select_metric, args=['CPC'])
     ''
-    '### Performance'
     col21, col22, col23, col24 = st.columns(4)
-    stats = mq.get_stats(bs.meta_ads_accounts['ucm'], dates)
+    stats = mq.get_stats(bs.meta_ads_accounts['ucm'], [st.session_state.start_date, st.session_state.end_date])
 
     col21.metric("Impressions", stats['Impressions'][0])
     col22.metric("Clicks", stats['Clicks'][0])
     col23.metric("Cost", stats['Cost'][0])
     col24.metric("CPC", stats['CPC'][0])
     
-    stats = mq.get_stats(bs.meta_ads_accounts['ucm'], dates, 1)
-    chart = alt.Chart(stats).mark_bar().encode(x=alt.X('Date start:T').title('Date'), y='Clicks:Q').properties(width=700).interactive()
+    stats_daily = mq.get_stats(bs.meta_ads_accounts['ucm'], [st.session_state.start_date, st.session_state.end_date], 1)
+    chart = alt.Chart(stats_daily).mark_bar().encode(
+        x=alt.X('Date start:T', axis=alt.Axis(title='Date', format='%m-%d')), 
+        y=f'{st.session_state.metric}:Q'
+    ).properties(width=700).interactive()
+
     st.altair_chart(chart)
 
 
+    
 with tab2:
     col1, col2 = st.columns(2)
     col1, col2, col3, col4 = st.columns(4)
