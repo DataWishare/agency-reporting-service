@@ -1,22 +1,23 @@
 import streamlit as st
+import queries.meta_ads as mq
+# import google_ads_queries.queries as gq
+import altair as alt
+import bootstrap as bs
+# import google_ads_queries.config as gc
+from datetime import date, timedelta, datetime
 import pandas as pd
-import numpy as np
-from datetime import date
 
-f"""
-# Today is {date.today()}, {date.today().strftime("%A")}
-"""
+'# 🏞️ Today'
+f'### Today is {date.today()}, {date.today().strftime("%A")}'
+tab1, tab2 = st.tabs(["UCM", "iTalkBB"])
+with tab1:
+    col21, col22, col23, col24 = st.columns(4)
+    stats = mq.get_stats(bs.meta_ads_accounts['ucm'], 'today')
 
-chart_data = pd.DataFrame(
-np.random.randn(200, 3),
-columns=['a', 'b', 'c'])
+    col21.metric("Impressions", stats['Impressions'][0])
+    col22.metric("Clicks", stats['Clicks'][0])
+    col23.metric("Cost", stats['Cost'][0])
+    col24.metric("CPC", stats['CPC'][0])
 
-st.vega_lite_chart(chart_data, {
-    'mark': {'type': 'circle', 'tooltip': True},
-    'encoding': {
-        'x': {'field': 'a', 'type': 'quantitative'},
-        'y': {'field': 'b', 'type': 'quantitative'},
-        'size': {'field': 'c', 'type': 'quantitative'},
-        'color': {'field': 'c', 'type': 'quantitative'},
-    },
-})
+with tab2:
+    'missing'
