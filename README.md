@@ -4,6 +4,7 @@
 
 Install all the dependencies by
 ```
+git clone https://github.com/sh3l6orrr/agency-reporting-service
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt

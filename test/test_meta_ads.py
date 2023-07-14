@@ -5,12 +5,13 @@ import queries.meta_ads as mq
 import yaml
 from datetime import date
 
-account_id = '3107148316242922'
-start_date = date(2023, 5, 20)
-end_date = date(2023, 6, 25)
-
 class TestMetaAds(unittest.TestCase):
-    def test(self):
+    def setUp(self):
+        account_id = '3107148316242922'
+        start_date = date(2022, 10, 20)
+        end_date = date(2023, 2, 25)
+        self.dates = [start_date, end_date]
+
         with open('meta_ads.yaml', 'r') as file:
             keys = yaml.safe_load(file)
         ad_account_id = f'act_{account_id}'
@@ -18,9 +19,13 @@ class TestMetaAds(unittest.TestCase):
         my_app_secret = keys['my_app_secret']
         my_access_token = keys['my_access_token']
         FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
-        account = AdAccount(ad_account_id)
-        dates = [start_date, end_date]
-        print(mq.get_stats(account, 'data_maximum'))
+        self.account = AdAccount(ad_account_id)
+
+    def test_get_stats(self):
+        print(mq.get_stats(self.account, self.dates))
+
+    def test_get_daily_stats(self):
+        print(mq.get_daily_stats(self.account, self.dates))
 
 if __name__ == '__main__':
     unittest.main()

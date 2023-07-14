@@ -22,11 +22,11 @@ def metrics(col1, col2, col3, col4):
     col4.metric("CPC", stats['CPC'][0])
 
 def line_chart():
-    stats_daily = mq.get_stats(
+    stats_daily = mq.get_daily_stats(
         bs.meta_ads_accounts[st.session_state.customer],
-        [st.session_state.start_date, st.session_state.end_date], 1)
-    chart = alt.Chart(stats_daily).mark_bar().encode(
-        x=alt.X('Date start:T', axis=alt.Axis(title='Date', format='%m-%d')), 
+        [st.session_state.start_date, st.session_state.end_date])
+    chart = alt.Chart(stats_daily).mark_line().encode(
+        x='Date:T', 
         y=f'{st.session_state.metric}:Q'
-    ).properties(width=700).interactive()
+    ).properties(width=650).interactive()
     return st.altair_chart(chart)

@@ -1,6 +1,4 @@
 import streamlit as st
-# import google_ads_queries.queries as gq
-# import google_ads_queries.config as gc
 import components.selectors as sl
 from components.visualizations import metrics, line_chart
 from components.state import init_states
@@ -28,9 +26,11 @@ with tab1:
     ''
     col1, col2, col3, col4 = st.columns(4)
     metrics(col1, col2, col3, col4)
+    ''
     line_chart()
 
 with tab2:
+    ''
     col1, col2 = st.columns(2)
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Campaigns", "12", "9%")

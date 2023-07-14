@@ -1,14 +1,15 @@
 # from google.ads.googleads.client import GoogleAdsClient
 from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
+from google.ads.googleads.client import GoogleAdsClient
 import yaml
 import config
 
 # Google Ads
-# ####################################################################################
-# google_ads_ids = config.google_ads_ids
-# client = GoogleAdsClient.load_from_storage("../google_ads.yaml", version="v14")
 ####################################################################################
+google_ads_ids = config.google_ads_ids
+client = GoogleAdsClient.load_from_storage("./google_ads.yaml", version="v14")
+###################################################################################
 
 # Meta Ads
 ####################################################################################
