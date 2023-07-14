@@ -30,17 +30,20 @@ my_app_secret: <YOUR META APP SECRET>
 my_access_token: <YOUR ACCESS TOKEN FOR GRAPH API>
 ```
 
-*config.py*
+*config.json*
 ```
-google_ads_ids = {
-    <ACCOUNT>: <ID>,
-    ...
+{
+    "google_ads_ids" = {
+        <ACCOUNT>: <ID>,
+        ...
+    },
+
+    "meta_ads_ids" = {
+        <ACCOUNT>: <ID>,
+        ...
+    }
 }
 
-meta_ads_ids = {
-    <ACCOUNT>: <ID>,
-    ...
-}
 ```
 
 ## Running locally

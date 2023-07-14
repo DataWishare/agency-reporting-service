@@ -7,19 +7,19 @@ from datetime import date
 def metrics_today(customer, col1, col2, col3, col4):
     col1, col2, col3, col4 = st.columns(4)
     stats = mq.get_stats(bs.meta_ads_accounts[customer], [date.today(), date.today()])
-    col1.metric("Impressions", stats['Impressions'][0])
-    col2.metric("Clicks", stats['Clicks'][0])
-    col3.metric("Cost", stats['Cost'][0])
-    col4.metric("CPC", stats['CPC'][0])
+    col1.metric("Impressions", stats['Impressions'][0], help='The number of times an ad is viewed in this period of time.')
+    col2.metric("Clicks", stats['Clicks'][0], help='The number of times an ad is clicked in this period of time.')
+    col3.metric("Cost", stats['Cost'][0], help='The total advertising cost in this period of time, in $USD.')
+    col4.metric("CPC", stats['CPC'][0], help='The average cost per click in this period of time, in $USD.')
 
 def metrics(col1, col2, col3, col4):
     col1, col2, col3, col4 = st.columns(4)
     stats = mq.get_stats(bs.meta_ads_accounts[st.session_state.customer], [st.session_state.start_date, st.session_state.end_date])
     
-    col1.metric("Impressions", stats['Impressions'][0])
-    col2.metric("Clicks", stats['Clicks'][0])
-    col3.metric("Cost", stats['Cost'][0])
-    col4.metric("CPC", stats['CPC'][0])
+    col1.metric("Impressions", stats['Impressions'][0], help='The number of times an ad is viewed in this period of time.')
+    col2.metric("Clicks", stats['Clicks'][0], help='The number of times an ad is clicked in this period of time.')
+    col3.metric("Cost", stats['Cost'][0], help='The total advertising cost in this period of time, in $USD.')
+    col4.metric("CPC", stats['CPC'][0], help='The average cost per click in this period of time, in $USD.')
 
 def line_chart():
     stats_daily = mq.get_daily_stats(

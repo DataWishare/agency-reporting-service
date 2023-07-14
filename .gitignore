@@ -3,5 +3,5 @@ venv
 *.csv
 test.ipynb
 __pycache__
-config.py
+config.json
 .DS_Store
