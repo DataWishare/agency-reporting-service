@@ -1,3 +1,7 @@
+from components.hide_footer import hide_footer
+
+hide_footer()
+
 ''
 '# ❓ About'
 

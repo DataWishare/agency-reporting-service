@@ -2,7 +2,9 @@ import streamlit as st
 import components.selectors as sl
 from components.visualizations import metrics, line_chart
 from components.state import init_states
+from components.hide_footer import hide_footer
 
+hide_footer()
 init_states()
 
 with st.sidebar:

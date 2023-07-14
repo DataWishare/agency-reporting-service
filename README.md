@@ -51,3 +51,15 @@ If you are all set, start by
 ```
 streamlit run Home.py
 ```
+
+## Screenshots
+
+### Homepage
+![Alt text](screenshots/image.png)
+
+### Data selector
+![Alt text](screenshots/image-2.png)
+![Alt text](screenshots/image-3.png)
+
+### Visualizations
+![Alt text](screenshots/image-1.png)

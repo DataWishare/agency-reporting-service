@@ -1,6 +1,9 @@
 import streamlit as st
 from datetime import date
 from components.visualizations import metrics_today
+from components.hide_footer import hide_footer
+
+hide_footer()
 
 f'# 🏞️ Today is {date.today()}, {date.today().strftime("%A")}'
 ''

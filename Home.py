@@ -1,4 +1,7 @@
 import streamlit as st
+from components.hide_footer import hide_footer
+
+hide_footer()
 
 st.image("logo.jpg")
 
