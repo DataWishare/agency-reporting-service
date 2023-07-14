@@ -1,8 +1,5 @@
 import streamlit as st
-# import google_ads_queries.queries as gq
-# import google_ads_queries.config as gc
 from datetime import date
-import components.selectors as sl
 from components.visualizations import metrics_today
 
 f'# 🏞️ Today is {date.today()}, {date.today().strftime("%A")}'

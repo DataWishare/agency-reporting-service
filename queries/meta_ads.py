@@ -1,7 +1,6 @@
 from facebook_business.adobjects.adaccount import AdAccount
 import pandas as pd
 from datetime import date
-import numpy as np
 
 def get_stats(account: AdAccount, date: list[date] | str | None = None, increment: str | int = 'all_days'):
   

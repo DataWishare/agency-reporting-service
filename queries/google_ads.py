@@ -1,7 +1,7 @@
 import pandas as pd
 from google.ads.googleads.client import GoogleAdsClient
 
-def overview(client: GoogleAdsClient, customer_id: int, date: list[str]):
+def overview(client: GoogleAdsClient, customer_id, date: list[str]):
     ga_service = client.get_service("GoogleAdsService")
     query = f"""
         SELECT 

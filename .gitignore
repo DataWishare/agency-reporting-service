@@ -1,6 +1,7 @@
 venv
 *.yaml
 *.csv
-*.ipynb
+test.ipynb
 __pycache__
 config.py
+.DS_Store

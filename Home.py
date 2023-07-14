@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.image("download.jpg")
+st.image("logo.jpg")
 
 '# Wishare Media Marketing Performance Tracking Service'
 ''

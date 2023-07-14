@@ -3,7 +3,6 @@ import streamlit as st
 # import google_ads_queries.config as gc
 import components.selectors as sl
 from components.visualizations import metrics, line_chart
-from datetime import date
 from components.state import init_states
 
 init_states()

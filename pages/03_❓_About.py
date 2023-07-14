@@ -14,7 +14,7 @@ marketing performance easily in one place.
 ### Intuitiveness
 The user interface of almost all marketing platforms are complex. It is hard to grab the
 insights we are interested at first sight. This reporting service is designed to make the
-data and insights as intuitive as possible
+data and insights as intuitive as possible.
 '''
 
 '''
