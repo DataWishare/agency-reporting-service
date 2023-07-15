@@ -1,15 +1,17 @@
+from states import init_analytics_states
+init_analytics_states()
+
 import streamlit as st
 import components.selectors as sl
 from components.visualizations import metrics, line_chart
-from components.state import init_states
 from components.hide_footer import hide_footer
 
 hide_footer()
-init_states()
 
 with st.sidebar:
+
     '### Select a customer'
-    st.selectbox('Customer', ['UCM', 'iTalkBB'], key='customer')
+    st.selectbox('Customer', ['UCM', 'iTalkBB', 'Youtube'], key='customer')
 
     '### Select a date range'
     col11, col12 = st.columns(2)
@@ -22,20 +24,23 @@ with st.sidebar:
 
 '# 💡 Analytics'
 ''
-tab1, tab2 = st.tabs(["Meta Ads", "Google Ads"])
+tab1, tab2 = st.tabs(['Meta Ads', 'Google Ads'])
 
 with tab1:
     ''
     col1, col2, col3, col4 = st.columns(4)
-    metrics(col1, col2, col3, col4)
-    ''
-    line_chart()
+    try:
+        metrics('Meta Ads', col1, col2, col3, col4)
+        ''
+        line_chart()
+    except:
+        'Meta ads is not supported for this customer'
+
 
 with tab2:
     ''
-    col1, col2 = st.columns(2)
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Campaigns", "12", "9%")
-    col2.metric("Impressions", "57", "-6%")
-    col3.metric("Conversions", "57", "-6%")
-    col4.metric("Cost", "57", "-6%")
+    try:
+        metrics('Google Ads', col1, col2, col3, col4)
+    except:
+        'Google ads is not supported for this customer'

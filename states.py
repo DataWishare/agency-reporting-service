@@ -1,7 +1,7 @@
 import streamlit as st
 from datetime import date, timedelta
 
-def init_states():
+def init_analytics_states():
     if 'customer' not in st.session_state:
         st.session_state.customer = 'UCM'
     if 'start_date' not in st.session_state:

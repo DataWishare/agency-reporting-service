@@ -15,19 +15,14 @@ marketing performance easily in one place.
 '''
 
 '''
+### Speed and cost-effectiveness
+This service fetches all the data needed through API calls in the backend, which operates in real time and extremely fast, while also reducing the cost of resorting to third-party data connectors and visualization services.
+'''
+
+'''
 ### Intuitiveness
-The user interface of almost all marketing platforms are complex. It is hard to grab the
-insights we are interested at first sight. This reporting service is designed to make the
-data and insights as intuitive as possible.
+The user interface of almost all marketing platforms are complex. It is hard to grab the insights we are interested in at first sight. This reporting service is designed to make the data and insights as intuitive as possible, allowing users to easily track the data based on customer, time range, metric, etc.
 '''
-
-'''
-### Reliability
-This service fetches all the data needed through API calls in the backend, hence reducing
-the cost of resorting to third-party data connectors and visualization services.
-'''
-
-
 
 '**Developed by sh3l6or**'
 

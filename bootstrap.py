@@ -4,27 +4,28 @@ from google.ads.googleads.client import GoogleAdsClient
 import yaml
 import json
 
-with open('config.json') as json_file:
-    config = json.load(json_file)
+with open('config.json') as __config_file:
+    __config = json.load(__config_file)
 
 # Google Ads
 ####################################################################################
-google_ads_ids = config['google_ads_ids']
-client = GoogleAdsClient.load_from_storage("./google_ads.yaml", version="v14")
+google_ads_ids = {key: str(value) for key, value in __config['google_ads_ids'].items()}# Google Ads customer IDs have to be str
+google_ads_client = GoogleAdsClient.load_from_storage("./google_ads.yaml", version="v14")
 ###################################################################################
 
 # Meta Ads
 ####################################################################################
-with open('meta_ads.yaml', 'r') as file:
-    keys = yaml.safe_load(file)
+__meta_ads_ids = __config['meta_ads_ids']
 
-my_app_id = keys['my_app_id']
-my_app_secret = keys['my_app_secret']
-my_access_token = keys['my_access_token']
+with open('meta_ads.yaml', 'r') as __file:
+    __keys = yaml.safe_load(__file)
 
-FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
+__my_app_id = __keys['my_app_id']
+__my_app_secret = __keys['my_app_secret']
+__my_access_token = __keys['my_access_token']
 
+FacebookAdsApi.init(__my_app_id, __my_app_secret, __my_access_token)
 meta_ads_accounts = {
-    'UCM': AdAccount(f'act_{config["meta_ads_ids"]["UCM"]}')
+    'UCM': AdAccount(f'act_{__meta_ads_ids["UCM"]}')
 }
 ####################################################################################

@@ -1,14 +1,10 @@
 import pandas as pd
 from google.ads.googleads.client import GoogleAdsClient
 
-def overview(client: GoogleAdsClient, customer_id, date: list[str]):
+def get_stats(client: GoogleAdsClient, customer_id, date: list[str]):
     ga_service = client.get_service("GoogleAdsService")
     query = f"""
-        SELECT 
-            metrics.clicks, 
-            metrics.impressions, 
-            metrics.conversions 
-        FROM customer
+        SELECT metrics.clicks, metrics.impressions, metrics.cost_micros, metrics.average_cpc FROM customer
         WHERE segments.date BETWEEN '{date[0]}' AND '{date[1]}'
     """ 
     stream = ga_service.search_stream(customer_id=customer_id, query=query)
@@ -18,11 +14,10 @@ def overview(client: GoogleAdsClient, customer_id, date: list[str]):
             data.append([
                 row.metrics.impressions, 
                 row.metrics.clicks, 
-                row.metrics.conversions])
-    return pd.DataFrame(data, columns=[
-            "Impressions",
-            "Clicks", 
-            "Conversions"])
+                round(row.metrics.cost_micros / 1000000, 2), 
+                round(row.metrics.average_cpc / 1000000, 2)
+            ])
+    return pd.DataFrame(data, columns=["Impressions", "Clicks", "Cost", "CPC"])
 
 def get_campaigns(client: GoogleAdsClient, customer_id, date):
     ga_service = client.get_service("GoogleAdsService")

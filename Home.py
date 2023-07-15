@@ -1,8 +1,10 @@
 import streamlit as st
 from components.hide_footer import hide_footer
+from PIL import Image
 
 hide_footer()
 
+image = Image.open('logo.jpg')
 st.image("logo.jpg")
 
 '# Wishare Media Marketing Performance Tracking Service'
